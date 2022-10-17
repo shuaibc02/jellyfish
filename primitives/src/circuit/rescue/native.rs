@@ -965,12 +965,13 @@ mod tests {
         let mut circuit = PlonkCircuit::new_turbo_plonk();
 
         let mut prng = ark_std::test_rng();
-        let data = (0..2 * RATE).map(|_| F::rand(&mut prng)).collect_vec();
+        let data = (0..RATE).map(|_| F::rand(&mut prng)).collect_vec();
         let data_vars = data
             .iter()
             .map(|&x| circuit.create_variable(x).unwrap())
             .collect_vec();
 
+        let num_cs = circuit.num_gates();
         let rescue_perm = Permutation::default();
         let expected_sponge = rescue_perm.sponge_no_padding(&data, 1).unwrap()[0];
         let sponge_var = circuit
@@ -978,6 +979,7 @@ mod tests {
             .unwrap()[0];
 
         assert_eq!(expected_sponge, circuit.witness(sponge_var).unwrap());
+        ark_std::println!("cs for rescue {}", circuit.num_gates() - num_cs);
 
         assert!(circuit.check_circuit_satisfiability(&[]).is_ok());
 
