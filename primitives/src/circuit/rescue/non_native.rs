@@ -251,6 +251,7 @@ pub(crate) trait RescueNonNativeHelperGadget<F: PrimeField>: Circuit<F> {
         rescue_state: &RescueNonNativeStateVar<F>,
     ) -> Result<(), CircuitError>;
 
+    #[allow(dead_code)]
     fn create_rescue_state_variable<T: RescueParameter>(
         &mut self,
         state: &RescueVector<T>,

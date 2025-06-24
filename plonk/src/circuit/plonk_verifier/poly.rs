@@ -39,7 +39,7 @@ pub(super) fn evaluate_poly_helper<E, F>(
     zeta_fp_elem_var: &FpElemVar<F>,
     domain_size: usize,
     non_native_field_info: NonNativeFieldInfo<F>,
-) -> Result<([FpElemVar<F>; 3]), CircuitError>
+) -> Result<[FpElemVar<F>; 3], CircuitError>
 where
     E: PairingEngine<Fq = F>,
     F: PrimeField,

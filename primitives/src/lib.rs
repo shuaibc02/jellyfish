@@ -27,6 +27,6 @@ pub mod merkle_tree;
 pub mod prf;
 pub mod rescue;
 pub mod signatures;
-pub mod vrf;
+// pub mod vrf;
 
 pub(crate) mod utils;

@@ -3,9 +3,10 @@
 use crate::errors::PrimitivesError;
 use ark_std::rand::{CryptoRng, RngCore};
 
-pub mod bls;
+// pub mod bls;
+// pub use bls::BLSSignatureScheme;
+
 pub mod schnorr;
-pub use bls::BLSSignatureScheme;
 pub use schnorr::SchnorrSignatureScheme;
 
 /// Trait definition for a signature scheme.
