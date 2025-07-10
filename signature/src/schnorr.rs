@@ -109,7 +109,7 @@ where
 /// printed out through outer structs. However, users could manually serialize
 /// it into bytes by calling `to_bytes()` or `to_tagged_base64()` and exercise
 /// with self-cautions.
-pub struct SignKey<F: PrimeField>(pub(crate) F);
+pub struct SignKey<F: PrimeField>(pub F);
 
 impl<F: PrimeField> core::fmt::Debug for SignKey<F> {
     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -255,8 +255,10 @@ pub struct KeyPair<P>
 where
     P: Config,
 {
-    sk: SignKey<P::ScalarField>,
-    vk: VerKey<P>,
+    /// Signing key
+    pub sk: SignKey<P::ScalarField>,
+    /// Verification key
+    pub vk: VerKey<P>,
 }
 
 // =====================================================

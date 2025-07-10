@@ -39,7 +39,7 @@ use serde::{Deserialize, Deserializer, Serialize};
 #[derive(Clone, Eq, Derivative, Serialize, Deserialize)]
 #[derivative(PartialEq, Hash)]
 /// Public/encryption key for AEAD
-pub struct EncKey(crypto_kx::PublicKey);
+pub struct EncKey(pub crypto_kx::PublicKey);
 
 impl From<[u8; 32]> for EncKey {
     fn from(bytes: [u8; 32]) -> Self {
@@ -117,7 +117,7 @@ impl EncKey {
 /// Private/decryption key for AEAD
 // look into zeroization logic from aead lib
 #[derive(Clone, Serialize, Deserialize)]
-struct DecKey(crypto_kx::SecretKey);
+struct DecKey(pub crypto_kx::SecretKey);
 
 impl From<[u8; 32]> for DecKey {
     fn from(bytes: [u8; 32]) -> Self {
@@ -148,8 +148,10 @@ impl fmt::Debug for DecKey {
     Clone, Debug, Default, Serialize, Deserialize, CanonicalSerialize, CanonicalDeserialize,
 )]
 pub struct KeyPair {
-    enc_key: EncKey,
-    dec_key: DecKey,
+    /// Public/encryption key
+    pub enc_key: EncKey,
+    /// Private/decryption key
+    pub dec_key: DecKey,
 }
 
 impl PartialEq for KeyPair {
